@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GlobalShippers Logistics</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: #f9f9f9; }
+
+    /* Top Scrolling Banner */
+    .top-banner {
+      background-color: #e74c3c;
+      color: white;
+      overflow: hidden;
+      white-space: nowrap;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 2000;
+      padding: 0.5rem 0;
+    }
+
+    .scrolling-text {
+      display: inline-block;
+      padding-left: 100%;
+      animation: scroll-left 15s linear infinite;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    @keyframes scroll-left {
+      0% {
+        transform: translateX(100%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    .navbar {
+      background: #fff;
+      padding: 1rem 5%;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      width: 100%;
+      top: 40px; /* Adjusted to allow space for the banner */
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    
+    .logo-img {
+      height: 40px;
+      width: auto;
+    }
+    
+    .logo-text {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #2c3e50;
+    }
+    .logo-text span { color: #e74c3c; }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a { text-decoration: none; color: #34495e; font-weight: 500; transition: color 0.3s; }
+    .nav-links a:hover { color: #e74c3c; }
+
+    .hero {
+      margin-top: 120px; /* Adjusted for navbar and banner */
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+        url('https://cdn.pixabay.com/photo/2022/08/07/11/33/port-7370411_1280.jpg');
+      padding: 6rem 5%;
+      text-align: center;
+      color: white;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hero h1 { font-size: 2.5rem; margin-bottom: 1.5rem; }
+
+    /* Enhanced Tracking Section */
+    .tracking-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: #fff;
+      padding: 2.5rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .tracking-container::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, #e74c3c, #3498db);
+    }
+
+    .tracking-title {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #2c3e50;
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+    
+    .tracking-subtitle {
+      text-align: center;
+      color: #7f8c8d;
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+
+    .tracking-input { 
+      display: flex; 
+      gap: 1rem;
+      position: relative;
+    }
+
+    #trackingNumber {
+      flex: 1;
+      padding: 1rem 1rem 1rem 3rem;
+      border: 2px solid #eee;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+    
+    #trackingNumber:focus {
+      border-color: #e74c3c;
+      box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2);
+      outline: none;
+    }
+    
+    .tracking-input::before {
+      content: "\f02d";
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      position: absolute;
+      left: 1.2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #7f8c8d;
+      z-index: 1;
+    }
+
+    .track-btn {
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+    }
+
+    .track-btn:hover { 
+      background: linear-gradient(135deg, #c0392b, #a5281b);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+    }
+    
+    .track-btn:active {
+      transform: translateY(0);
+    }
+    
+    .tracking-features {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid #eee;
+    }
+    
+    .tracking-feature {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      color: #34495e;
+      font-size: 0.95rem;
+    }
+    
+    .tracking-feature i {
+      color: #e74c3c;
+      font-size: 1.2rem;
+    }
+
+    /* Enhanced Services Section */
+    .services { 
+      padding: 6rem 5%; 
+      background: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .services::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1605152276897-4f618f831968?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+      opacity: 0.03;
+      z-index: 0;
+    }
+
+    .services h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #2c3e50;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .services .subtitle {
+      text-align: center;
+      color: #7f8c8d;
+      max-width: 700px;
+      margin: 0 auto 3rem;
+      font-size: 1.1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2.5rem;
+      margin-top: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .service-card {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(0,0,0,0.05);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .service-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 0;
+      background: #e74c3c;
+      transition: height 0.3s ease;
+    }
+    
+    .service-card:hover::before {
+      height: 100%;
+    }
+
+    .service-card:hover { 
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+    }
+    
+    .service-icon {
+      font-size: 2.5rem;
+      color: #e74c3c;
+      margin-bottom: 1.5rem;
+      display: inline-block;
+    }
+    
+    .service-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #2c3e50;
+      position: relative;
+    }
+    
+    .service-card p {
+      color: #7f8c8d;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    
+    .service-features {
+      margin-top: 1.5rem;
+      padding-left: 0;
+      list-style-type: none;
+    }
+    
+    .service-features li {
+      padding: 0.5rem 0;
+      color: #34495e;
+      position: relative;
+      padding-left: 1.8rem;
+    }
+    
+    .service-features li::before {
+      content: "\f00c";
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      position: absolute;
+      left: 0;
+      color: #27ae60;
+    }
+    
+    .learn-more {
+      display: inline-block;
+      margin-top: 1rem;
+      color: #e74c3c;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+      position: relative;
+    }
+    
+    .learn-more::after {
+      content: "\f061";
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      margin-left: 0.5rem;
+      transition: all 0.3s;
+    }
+    
+    .learn-more:hover {
+      color: #c0392b;
+      transform: translateX(5px);
+    }
+    
+    .learn-more:hover::after {
+      margin-left: 0.8rem;
+    }
+
+    /* Enhanced Contact Section */
+    .contact { 
+      padding: 6rem 5%; 
+      background: #f8f9fa;
+      position: relative;
+    }
+    
+    .contact::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+      opacity: 0.03;
+      z-index: 0;
+    }
+
+    .contact h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #2c3e50;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .contact .subtitle {
+      text-align: center;
+      color: #7f8c8d;
+      max-width: 700px;
+      margin: 0 auto 3rem;
+      font-size: 1.1rem;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .contact-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .contact-info {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .contact-info h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: #2c3e50;
+      position: relative;
+      padding-bottom: 1rem;
+    }
+    
+    .contact-info h3::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: #e74c3c;
+    }
+    
+    .contact-details {
+      list-style: none;
+      padding: 0;
+      margin-top: 2rem;
+    }
+    
+    .contact-details li {
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      color: #34495e;
+    }
+    
+    .contact-details i {
+      color: #e74c3c;
+      font-size: 1.2rem;
+      margin-top: 0.2rem;
+    }
+    
+    .contact-details a {
+      color: #3498db;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .contact-details a:hover {
+      color: #2980b9;
+      text-decoration: underline;
+    }
+    
+    .contact-form {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .contact-form h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: #2c3e50;
+      position: relative;
+      padding-bottom: 1rem;
+    }
+    
+    .contact-form h3::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: #e74c3c;
+    }
+    
+    .form-group { 
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #34495e;
+      font-weight: 500;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid #eee;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+    
+    input:focus, textarea:focus {
+      border-color: #e74c3c;
+      box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2);
+      outline: none;
+    }
+    
+    .form-btn {
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: 600;
+      width: 100%;
+      box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+    }
+    
+    .form-btn:hover {
+      background: linear-gradient(135deg, #c0392b, #a5281b);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+    }
+    
+    .form-btn:active {
+      transform: translateY(0);
+    }
+
+    @media (max-width: 760px) {
+      .nav-links { display: none; }
+      .tracking-input { flex-direction: column; }
+      .track-btn { width: 100%; }
+      .logo-text { font-size: 1.4rem; }
+      .contact-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .loader {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #e74c3c;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    #notification {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #27ae60;
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      display: none;
+      z-index: 9999;
+      animation: fadeInOut 4s ease-in-out forwards;
+    }
+
+    @keyframes fadeInOut {
+      0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+      10%, 90% { opacity: 1; transform: translateX(-50%) translateY(0); }
+      100% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Scrolling Banner -->
+  <div class="top-banner">
+    <div class="scrolling-text">🌍 GlobalShippers - Fast, Reliable, Worldwide Vehicle Shipping Services 🌎</div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <a href="#home" class="logo-container">
+      <img src="https://cdn-icons-png.flaticon.com/512/3710/3710144.png" alt="GlobalShippers Logo" class="logo-img">
+      <div class="logo-text">Global<span>Shippers</span></div>
+    </a>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#services">Services</a>
+      <a href="#home">Tracking</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <h1>Global Car Export & Logistics Solutions</h1>
+    <div class="tracking-container">
+      <h2 class="tracking-title">Track Your Shipment</h2>
+      <p class="tracking-subtitle">Enter your tracking number below to get real-time updates on your vehicle's location</p>
+      <div class="tracking-input">
+        <input type="text" id="trackingNumber" placeholder="GS-XXXXXX">
+        <button class="track-btn" onclick="trackShipment()">
+          <i class="fas fa-search"></i> Track Vehicle
+        </button>
+      </div>
+      <div class="tracking-features">
+        <div class="tracking-feature">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>Real-time location tracking</span>
+        </div>
+        <div class="tracking-feature">
+          <i class="fas fa-clock"></i>
+          <span>Estimated delivery times</span>
+        </div>
+        <div class="tracking-feature">
+          <i class="fas fa-bell"></i>
+          <span>Status notifications</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="services">
+    <h2>Our Premium Logistics Services</h2>
+    <p class="subtitle">We deliver comprehensive transportation solutions tailored to your specific needs with global reach and local expertise</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">
+          <i class="fas fa-ship"></i>
+        </div>
+        <h3>International Vehicle Export</h3>
+        <p>Seamless global vehicle transportation with end-to-end customs clearance and documentation handling for individuals and dealerships.</p>
+        <ul class="service-features">
+          <li>Door-to-door delivery worldwide</li>
+          <li>Customs brokerage services</li>
+          <li>RO-RO and container shipping</li>
+          <li>Export compliance consulting</li>
+        </ul>
+        <a href="#" class="learn-more">Explore service</a>
+      </div>
+      
+      <div class="service-card">
+        <div class="service-icon">
+          <i class="fas fa-truck"></i>
+        </div>
+        <h3>Domestic Transport</h3>
+        <p>Reliable inland vehicle transportation with specialized carriers and real-time tracking for complete peace of mind.</p>
+        <ul class="service-features">
+          <li>Enclosed and open carrier options</li>
+          <li>Expedited shipping available</li>
+          <li>Vehicle inspection reports</li>
+          <li>Nationwide coverage</li>
+        </ul>
+        <a href="#" class="learn-more">Explore service</a>
+      </div>
+      
+      <div class="service-card">
+        <div class="service-icon">
+          <i class="fas fa-warehouse"></i>
+        </div>
+        <h3>Storage Solutions</h3>
+        <p>Secure short and long-term vehicle storage with climate-controlled options and 24/7 monitored facilities.</p>
+        <ul class="service-features">
+          <li>Bonded warehouse facilities</li>
+          <li>Inventory management</li>
+          <li>Preparation services</li>
+          <li>Insurance options</li>
+        </ul>
+        <a href="#" class="learn-more">Explore service</a>
+      </div>
+      
+      <div class="service-card">
+        <div class="service-icon">
+          <i class="fas fa-boxes"></i>
+        </div>
+        <h3>Parts Logistics</h3>
+        <p>Specialized handling and transportation of automotive parts and components with custom packaging solutions.</p>
+        <ul class="service-features">
+          <li>OEM and aftermarket parts</li>
+          <li>Just-in-time delivery</li>
+          <li>Inventory management</li>
+          <li>Kitting and sequencing</li>
+        </ul>
+        <a href="#" class="learn-more">Explore service</a>
+      </div>
+      
+      <div class="service-card">
+        <div class="service-icon">
+          <i class="fas fa-passport"></i>
+        </div>
+        <h3>Customs Clearance</h3>
+        <p>Expert navigation of complex international customs regulations to ensure smooth border crossings.</p>
+        <ul class="service-features">
+          <li>Document preparation</li>
+          <li>Duty optimization</li>
+          <li>Regulatory compliance</li>
+          <li>24/7 customs support</li>
+        </ul>
+        <a href="#" class="learn-more">Explore service</a>
+      </div>
+      
+      <div class="service-card">
+        <div class="service-icon">
+          <i class="fas fa-headset"></i>
+        </div>
+        <h3>Consulting Services</h3>
+        <p>Strategic logistics consulting to optimize your supply chain and reduce transportation costs.</p>
+        <ul class="service-features">
+          <li>Route optimization</li>
+          <li>Cost analysis</li>
+          <li>Compliance audits</li>
+          <li>Technology solutions</li>
+        </ul>
+        <a href="#" class="learn-more">Explore service</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="contact">
+    <h2>Contact Us</h2>
+    <p class="subtitle">Have questions or need assistance? Get in touch with our logistics experts today</p>
+    
+    <div class="contact-container">
+      <div class="contact-info">
+        <h3>Our Contact Information</h3>
+        <ul class="contact-details">
+          <li>
+            <i class="fas fa-map-marker-alt"></i>
+            <div>
+              <strong>Headquarters</strong><br>
+              1234 Shipping Lane, Suite 500<br>
+              Miami, FL 33132, USA
+            </div>
+          </li>
+          <li>
+            <i class="fas fa-phone-alt"></i>
+            <div>
+              <strong>Phone</strong><br>
+              <a href="tel:+18005551234">+1 (800) 555-1234</a>
+            </div>
+          </li>
+          <li>
+            <i class="fas fa-envelope"></i>
+            <div>
+              <strong>Email</strong><br>
+              <a href="mailto:info@globalshippers.com">info@globalshippers.com</a>
+            </div>
+          </li>
+          <li>
+            <i class="fas fa-clock"></i>
+            <div>
+              <strong>Business Hours</strong><br>
+              Monday-Friday: 8AM - 6PM EST<br>
+              Saturday: 9AM - 2PM EST
+            </div>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="contact-form">
+        <h3>Send Us a Message</h3>
+        <form id="contactForm">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" placeholder="John Smith" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="john@example.com" required>
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" placeholder="Regarding my shipment">
+          </div>
+          <div class="form-group">
+            <label for="message">Your Message</label>
+            <textarea rows="5" id="message" placeholder="How can we help you?" required></textarea>
+          </div>
+          <button class="form-btn" type="submit">
+            <i class="fas fa-paper-plane"></i> Send Message
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notification -->
+  <div id="notification">✅ Message sent successfully! Our team will contact you shortly.</div>
+
+  <script>
+    const botToken = '7342111571:AAFUmvZ-7d-Fjg0TOm3qmxuB5AHlB8FwpJw'; // Replace this
+    const chatId = '5502103678'; // Replace this
+
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const subject = document.getElementById('subject').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if (!name || !email || !message) {
+        alert("Please fill out all required fields.");
+        return;
+      }
+
+      const telegramMessage = `📩 New Message from Contact Form:\n\n👤 Name: ${name}\n📧 Email: ${email}\n📌 Subject: ${subject || 'Not specified'}\n📝 Message:\n${message}`;
+
+      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: telegramMessage
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.ok) {
+          showNotification();
+        } else {
+          alert("Failed to send message. Please try again.");
+        }
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        alert("There was an error sending your message. Please try again later.");
+      });
+    });
+
+    function showNotification() {
+      const notification = document.getElementById('notification');
+      notification.style.display = 'block';
+
+      setTimeout(() => {
+        notification.style.display = 'none';
+        document.getElementById('contactForm').reset();
+      }, 4000);
+    }
+
+    function trackShipment() {
+      const trackingId = document.getElementById('trackingNumber').value.trim().toUpperCase();
+      if (!trackingId) {
+        alert('Please enter a tracking number');
+        return;
+      }
+      if (trackingId !== 'GS-H57H4KDM11') {
+        alert('Invalid tracking number. Please enter a valid tracking code (e.g., GS-H57H4KDM11).');
+        return;
+      }
+
+      const loadingDiv = document.createElement('div');
+      loadingDiv.id = 'loadingScreen';
+      loadingDiv.style.position = 'fixed';
+      loadingDiv.style.top = '0';
+      loadingDiv.style.left = '0';
+      loadingDiv.style.width = '100%';
+      loadingDiv.style.height = '100%';
+      loadingDiv.style.background = 'rgba(255, 255, 255, 0.9)';
+      loadingDiv.style.display = 'flex';
+      loadingDiv.style.flexDirection = 'column';
+      loadingDiv.style.justifyContent = 'center';
+      loadingDiv.style.alignItems = 'center';
+      loadingDiv.style.zIndex = '9999';
+      loadingDiv.innerHTML = `
+        <div class="loader"></div>
+        <div style="margin-top: 1rem; font-size: 1.2rem; color: #e74c3c;">Tracking your shipment...</div>
+      `;
+      document.body.appendChild(loadingDiv);
+
+      setTimeout(() => {
+        window.location.href = 'details.html';
+      }, 3000);
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+
+  <!-- Tawk.to Live Chat -->
+  <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+      var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+      s1.async=true;
+      s1.src='https://embed.tawk.to/68137d0928944c19102d4a8e/1iq620sme';
+      s1.charset='UTF-8';
+      s1.setAttribute('crossorigin','*');
+      s0.parentNode.insertBefore(s1,s0);
+    })();
+  </script>
+</body>
+</html>
