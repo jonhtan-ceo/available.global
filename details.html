@@ -490,11 +490,11 @@
       </div>
       <div>
         <strong>Status:</strong>
-        <p>Out for Final Delivery</p>
+        <p>In Transit</p>
       </div>
       <div>
         <strong>Current Location:</strong>
-        <p>Texas Highway 61, TX</p>
+        <p>Texas Highway 83</p>
       </div>
       <div>
         <strong>Destination:</strong>
@@ -537,14 +537,14 @@
             model: 'Toyota',
             year: 2023
           },
-          status: 'Out for Final Delivery',
+          status: 'In Transit',
           currentLocation: 'Texas Highway 61',
           destination: '503 Horseshoe Lake Rd , Lincolnton. NC 28092, United States',
           updates: [
             { date: '---------', status: 'Order Received', location: 'GlobalShippers HQ' },
             { date: '---------', status: 'Customs Cleared', location: 'North Carolina Customs Office' },
             { date: '---------', status: 'Arrived in North Carolina', location: 'North Carolina' },
-            { date: '---------', status: 'In Transit', location: 'Texas Highway 83' },
+            { date: '2025-07-19', status: 'In Transit', location: 'Texas Highway 83' },
             { date: '2025-07-18', status: 'Out for Final Delivery', location: 'Texas Highway 61' }
           ]
         }
@@ -556,7 +556,7 @@
         let itemClass = '';
         let iconClass = 'fas fa-dot-circle';
 
-        if (update.status === 'Out for Final Delivery') {
+        if (update.status === 'In Transit') {
           itemClass = 'highlight';
           iconClass = 'fas fa-truck';
         } else if (index < shipment.updates.length - 1) {
@@ -581,7 +581,7 @@
       
       // Animate progress bar
       setTimeout(() => {
-        document.querySelector('.progress-fill').style.width = '10%';
+        document.querySelector('.progress-fill').style.width = '30%';
       }, 500);
     });
     
