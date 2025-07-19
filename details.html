@@ -490,7 +490,7 @@
       </div>
       <div>
         <strong>Status:</strong>
-        <p>In Transit</p>
+        <p>Arrived in North Carolina</p>
       </div>
       <div>
         <strong>Current Location:</strong>
@@ -509,7 +509,7 @@
       <div class="progress-labels">
         <span>Order Received</span>
         <span>In Transit</span>
-        <span>Arrived in Georgia</span>
+        <span>Arrived in North Carolina</span>
         <span>Customs Cleared</span>
         <span>Order Received</span>
       </div>
@@ -537,13 +537,13 @@
             model: 'Toyota',
             year: 2023
           },
-          status: 'In Transit',
+          status: 'Arrived in North Carolina',
           currentLocation: 'Texas Highway 61',
           destination: '503 Horseshoe Lake Rd , Lincolnton. NC 28092, United States',
           updates: [
             { date: '---------', status: 'Order Received', location: 'GlobalShippers HQ' },
             { date: '---------', status: 'Customs Cleared', location: 'North Carolina Customs Office' },
-            { date: '---------', status: 'Arrived in North Carolina', location: 'North Carolina' },
+            { date: '2025-07-20', status: 'Arrived in North Carolina', location: 'North Carolina' },
             { date: '2025-07-19', status: 'In Transit', location: 'Texas Highway 83' },
             { date: '2025-07-18', status: 'Out for Final Delivery', location: 'Texas Highway 61' }
           ]
@@ -556,7 +556,7 @@
         let itemClass = '';
         let iconClass = 'fas fa-dot-circle';
 
-        if (update.status === 'In Transit') {
+        if (update.status === 'Arrived in North Carolina') {
           itemClass = 'highlight';
           iconClass = 'fas fa-truck';
         } else if (index < shipment.updates.length - 1) {
@@ -581,7 +581,7 @@
       
       // Animate progress bar
       setTimeout(() => {
-        document.querySelector('.progress-fill').style.width = '30%';
+        document.querySelector('.progress-fill').style.width = '55%';
       }, 500);
     });
     
